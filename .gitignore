@@ -9,6 +9,7 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+
 # Runtime data
 pids
 *.pid
@@ -22,9 +23,10 @@ lib-cov
 coverage
 *.lcov
 
+__pycache__
 # nyc test coverage
 .nyc_output
-
+.vscode
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 

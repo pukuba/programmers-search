@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "description": "black-jack",
+  "main": "server.js",
+  "dependencies": {
+    "apollo-server-express": "^2.18.2",
+    "body-parser": "^1.19.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-playground-middleware-express": "^1.7.22",
+    "graphql-validation-complexity": "^0.4.2",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.2.1",
+    "mongodb": "^3.6.2",
+    "nodemon": "^2.0.6",
+    "pm2": "^4.5.0",
+    "supertest": "^6.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1"
+  },
+  "scripts": {
+    "start": "nodemon -e js,json,graphql",
+    "test": "node_modules/.bin/mocha test/test.spec.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
