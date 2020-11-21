@@ -1,3 +1,11 @@
 type Query{
     test: String!
+    findProblem(title:String): [Problem]
+    getAllProblem: [Problem]
+}
+
+type Problem{
+    Title: String!
+    Url: String!
+    Lv: String!
 }
