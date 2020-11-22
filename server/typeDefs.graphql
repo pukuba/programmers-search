@@ -2,6 +2,13 @@ type Query{
     test: String!
     findProblem(text:String): [Problem]
     getAllProblem: [Problem]
+    refreshLogin(refreshToken:String): LoginResult
+}
+
+type Mutation{
+    register(name:String!,id:String!,pw:String!,img:Upload): User
+    setUser(name:String,pw:String,img:Upload): User
+    login(id:String!,pw:String!): LoginResult
 }
 
 type Problem{
@@ -9,4 +16,15 @@ type Problem{
     url: String!
     lv: String!
     tag: String!
+}
+
+type LoginResult{
+    token: String
+    refreshToken: String
+}
+
+type User{
+    name: String
+    id: String
+    img: String
 }

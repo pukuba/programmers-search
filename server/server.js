@@ -72,7 +72,7 @@ const start = async () => {
     server.applyMiddleware({ app })
 
     app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
-    app.use('/image/', express.static(path.join(__dirname, 'models/card')))
+    app.use('/img/', express.static(path.join(__dirname, 'models/img')))
     app.use(cors(corsOptions))
 
     const httpServer = createServer(app)

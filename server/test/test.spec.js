@@ -7,9 +7,6 @@ const req = supertest(app)
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-const { MongoClient } = require('mongodb')
-
-
 describe('TEST', async () => {
 
     it(`wait server`, async () => {
@@ -77,4 +74,39 @@ describe('TEST', async () => {
         assert.strictEqual(json.data.findProblem[0].tag, "스택/큐")
     })
 
+    it(`Register Test1`, async () => {
+
+        const query = `
+            mutation{
+                register(id:"test",pw:"test",name:"test"){
+                    id
+                }
+            }
+        `
+
+        const result = await req.post('/graphql')
+            .send({ query })
+            .expect(200)
+
+        const json = JSON.parse(result.res.text)
+        assert.strictEqual(json.errors[0].message,"Conflict")
+        assert.strictEqual(json.errors[0].extensions.code,409)
+    })
+
+    it(`Register Test2`, async() => {
+        const query = `
+            mutation{
+                register(id:"x",pw:"test",name:"test"){
+                    id
+                }
+            }
+        `
+
+        const result = await req.post('/graphql')
+            .send({ query })
+            .expect(200)
+
+        const json = JSON.parse(result.res.text)
+        assert.strictEqual(json.errors[0].extensions.code,412)
+    })
 })
