@@ -19,7 +19,7 @@ describe('TEST', () => {
             .expect(200)
 
         const json = JSON.parse(result.res.text)
-        assert.strictEqual(json.data.test, "test")
+        assert.strictEqual(json.data.test, "serverOn")
     })
 
     it(`API test1`, async () => {
@@ -27,9 +27,10 @@ describe('TEST', () => {
         const query = `
         query{
             getAllProblem{
-                Title
-                Lv
-                Url
+                title
+                lv
+                url
+                tag
             }
         }`
 
@@ -42,29 +43,28 @@ describe('TEST', () => {
         
     })
 
-
-
     it(`API test2`, async () => {
 
         const query = `
             query{
-                searchProblem(title:"주식가격"){
+                findProblem(text:"주식가격"){
                     title
                     lv
                     url
+                    tag
                 }
             }
         `
-
+        
         const result = await req.post('/graphql')
             .send({ query })
             .expect(200)
-
-        // const json = JSON.parse(result.res.text)
-        // assert.strictEqual(json.data.searchProblem.title, "주식가격")
-        // assert.strictEqual(json.data.searchProblem.lv, "2")
-        // assert.strictEqual(json.data.searchProblem.url,"https://programmers.co.kr/learn/courses/30/lessons/42584")
-
+        
+        const json = JSON.parse(result.res.text)
+        assert.strictEqual(json.data.findProblem[0].title,"주식가격")
+        assert.strictEqual(json.data.findProblem[0].lv,"2")
+        assert.strictEqual(json.data.findProblem[0].url,"https://programmers.co.kr/learn/courses/30/lessons/42584")
+        assert.strictEqual(json.data.findProblem[0].tag, "스택/큐")
     })
 
 })

@@ -2,7 +2,10 @@ const { ApolloServer, PubSub } = require('apollo-server-express')
 const express = require('express')
 const expressPlayground = require('graphql-playground-middleware-express').default
 
+const mysql = require('mysql');
+const dbConfig = require('./models/db_config')
 const { MongoClient } = require('mongodb')
+
 const { readFileSync } = require('fs')
 const { createServer } = require('http')
 
@@ -23,17 +26,18 @@ const start = async () => {
     module.exports = app
     const pubsub = new PubSub()
     const client = await MongoClient.connect(
-        process.env.DB_HOST2, {
+        process.env.DB_HOST1, {
         useUnifiedTopology: true,
         useNewUrlParser: true
     }
     )
+    const db = client.db()
+    // const db = mysql.createConnection(dbConfig)
+    // db.connect()
     const corsOptions = {
         origin: '*',
         optionsSuccessStatus: 200,
     }
-
-    const db = client.db()
 
     const server = new ApolloServer({
         typeDefs,

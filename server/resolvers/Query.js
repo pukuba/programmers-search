@@ -1,6 +1,7 @@
-const { getAllProblem } = require('./logic') 
+const { getAllProblem, findProblem} = require('./logic') 
 
 module.exports = {
-    test: () => "test",
-    getAllProblem
+    test: () => "serverOn",
+    getAllProblem,
+    findProblem
 }
