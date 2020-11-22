@@ -83,7 +83,7 @@ const start = async () => {
         console.log(`GraphQL Server running at http://localhost:${process.env.PORT}${server.graphqlPath}`)
         console.log(`Subscriptions ready at ws://localhost:${process.env.PORT}${server.subscriptionsPath}`)
     })
-    
+
 }
 
 start()

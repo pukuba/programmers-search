@@ -1,5 +1,5 @@
 const supertest = require('supertest')
-const app  = require('../server')
+const app = require('../server')
 const assert = require('assert')
 
 const log = console.log
@@ -10,9 +10,9 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const { MongoClient } = require('mongodb')
 
 
-describe('TEST', async() => {
+describe('TEST', async () => {
 
-    it(`wait server`, async() => {
+    it(`wait server`, async () => {
         await delay(2000)
     })
 
@@ -26,7 +26,7 @@ describe('TEST', async() => {
         const result = await req.post('/graphql')
             .send({ query })
             .expect(200)
-            
+
 
         const json = JSON.parse(result.res.text)
         assert.strictEqual(json.data.test, "serverOn")
@@ -76,5 +76,5 @@ describe('TEST', async() => {
         assert.strictEqual(json.data.findProblem[0].url, "https://programmers.co.kr/learn/courses/30/lessons/42584")
         assert.strictEqual(json.data.findProblem[0].tag, "스택/큐")
     })
-    
+
 })
