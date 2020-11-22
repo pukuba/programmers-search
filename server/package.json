@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "nodemon -e js,json,graphql",
-    "test": "node_modules/.bin/mocha test/test.spec.js"
+    "test": "node_modules/.bin/mocha test/test.spec.js --exit --timeout 10000"
   },
   "author": "",
   "license": "ISC"

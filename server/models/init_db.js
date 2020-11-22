@@ -19,7 +19,11 @@ const init = async () => {
     )
 
     const db = client.db()
-    await db.collection('problem').drop()
+    const ls = await db.listCollections().toArray()
+    if (ls.length !== 0) {
+        await db.collection('problem').drop()
+    }
+
     await db.collection('problem').insertMany(jsonArray)
 
     console.log("db insert success")
