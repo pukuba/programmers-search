@@ -3,12 +3,15 @@ type Query{
     findProblem(text:String): [Problem]
     getAllProblem: [Problem]
     refreshLogin(refreshToken:String): LoginResult
+    myInfo: User
+
 }
 
 type Mutation{
     register(name:String!,id:String!,pw:String!,img:Upload): User
     setUser(name:String,pw:String,img:Upload): User
     login(id:String!,pw:String!): LoginResult
+    logout(refreshToken:String!): Boolean
 }
 
 type Problem{

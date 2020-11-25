@@ -105,4 +105,10 @@ module.exports = {
     findUser: async (parent, { name }, { db }) => {
         return await db.collection('user').findOne({ name: name })
     },
+
+    myInfo: async (parent, _, { db, token }) => {
+        const user = checkToken(token)
+        const result = await db.collection('user').findOne({id : user.id})
+        return result
+    }
 }

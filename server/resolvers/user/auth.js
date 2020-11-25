@@ -34,7 +34,9 @@ module.exports = {
     },
 
     refreshLogin: async (parent, { refreshToken }, { db }) => {
+        console.log(refreshToken)
         const foundToken = await db.collection('token').findOne({ refreshToken })
+        console.log(foundToken)
         if (foundToken === null) {
             throw new ApolloError("refreshToken is not valid", 401)
         }
