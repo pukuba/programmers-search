@@ -1,4 +1,4 @@
-const { getAllProblem, findProblem} = require('./logic') 
+const { getAllProblem, findProblem, findLevelByProblem} = require('./logic') 
 const { myInfo, refreshLogin } = require('./user')
 
 module.exports = {
@@ -6,5 +6,6 @@ module.exports = {
     getAllProblem,
     findProblem,
     myInfo,
-    refreshLogin
+    refreshLogin,
+    findLevelByProblem
 }
