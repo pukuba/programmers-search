@@ -5,6 +5,7 @@ type Query{
     refreshLogin(refreshToken:String): LoginResult
     myInfo: User
     findLevelByProblem(levels:[Int]): [Problem]
+    getRandomProblem: Problem
 }
 
 type Mutation{
