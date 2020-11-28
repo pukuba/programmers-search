@@ -71,6 +71,7 @@ const start = async () => {
     })
     server.applyMiddleware({ app })
 
+    app.get('/',expressPlayground({endpoint:'/graphql'}))
     app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
     app.use('/img/', express.static(path.join(__dirname, 'models/img')))
     app.use(cors(corsOptions))
