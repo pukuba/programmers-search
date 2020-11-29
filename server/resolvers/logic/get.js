@@ -9,16 +9,18 @@ module.exports = {
         return resultArr
     },
     findLevelByProblem: async (parent, { levels }, { db }) => {
-        let returnArr = []
-        for (const level of levels) {
-            const problem = await db.collection('problem').find({ lv: String(level) }).toArray()
-            returnArr = returnArr.concat(problem)
-        }
+        levels = levels.reverse()
+        const returnArr = levels.reduce(async (acc, cur) => {
+            const problems = await db.collection('problem').find({ lv: String(cur) }).toArray()
+            return problems.concat(await acc)
+        }, [])
+
         return returnArr
     },
     getRandomProblem: async (parent, _, { db }) => {
-        const problems = await db.collection('problem').find().toArray()
-        const randomIndex = rand(0,problems.length - 1)
-        return problems[randomIndex]
+        const count = await db.collection('problem').estimatedDocumentCount()
+        const skip = rand(0, count - 1)
+        const problem = await db.collection('problem').find({}).skip(skip).limit(1).toArray()
+        return problem[0]
     }
 }

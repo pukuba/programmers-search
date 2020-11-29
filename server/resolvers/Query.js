@@ -1,4 +1,4 @@
-const { getAllProblem, findProblem, findLevelByProblem, getRandomProblem} = require('./logic') 
+const { getAllProblem, findProblem, findLevelByProblem, getRandomProblem } = require('./logic')
 const { myInfo, refreshLogin } = require('./user')
 
 module.exports = {

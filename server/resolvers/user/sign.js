@@ -9,16 +9,14 @@ const path = require('path')
 
 
 const checkLength = x => {
-    if (x.length < 4) {
-        throw new ApolloError("모든 필드의 최소길이는 4입니다.", 412)
-    }
+    if (!x || x.length < 4) return false
     return true
 }
 
 const isAlphaNumeric = x => {
     for (const char of x) {
         if (!('a' <= char && char <= 'z' || 'A' <= char && char <= 'Z' || '0' <= char && char <= '9')) {
-            throw new ApolloError("id 혹은 name이 형식에 맞지 않습니다.", 412)
+            return false
         }
     }
     return true
@@ -27,7 +25,7 @@ const isAlphaNumeric = x => {
 const isValidPassword = x => {
     for (const char of x) {
         if (!('a' <= char && char <= 'z' || 'A' <= char && char <= 'Z' || '0' <= char && char <= '9' || specialChar.includes(char))) {
-            throw new ApolloError("password가 형식에 맞지 않습니다.", 412)
+            return false
         }
     }
     return true
@@ -37,10 +35,16 @@ const hashWithSalt = (pw, salt) => crypto.createHash("sha512").update(pw + salt)
 
 
 module.exports = {
-    register: async (parent, { name, id, pw, img }, { token, db }) => {
-        checkLength(name), checkLength(id), checkLength(pw)
-        isAlphaNumeric(id + name)
-        isValidPassword(pw)
+    register: async (parent, { name, id, pw, img }, { db }) => {
+        if (!checkLength(name) || !checkLength(id) || !checkLength(pw)) {
+            throw new ApolloError("모든 필드의 최소길이는 4입니다.", 412)
+        }
+        if (!isAlphaNumeric(id) || !isAlphaNumeric(name)) {
+            throw new ApolloError("id 혹은 name이 형식에 맞지 않습니다.", 412)
+        }
+        if (!isValidPassword(pw)) {
+            throw new ApolloError("password가 형식에 맞지 않습니다.", 412)
+        }
 
         const foundUser = await db.collection('user').findOne({ $or: [{ "name": name }, { "id": id }] })
 
@@ -80,10 +84,10 @@ module.exports = {
         }
         if (img) {
             const { insertedId } = db.collection('user').findOne({ id: user.id })
-            const image_path = path.join(__dirname, '../../models/img', `${insertedId}.png`)
+            const imagePath = path.join(__dirname, '../../models/img', `${insertedId}.png`)
             const { createReadStream } = await img
-            const stream = createReadStream(image_path);
-            await uploadStream(stream, image_path)
+            const stream = createReadStream(imagePath);
+            await uploadStream(stream, imagePath)
             await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `img/${insertedId}.png` } })
         }
         return await db.collection('user').findOne({ id: user.id })
@@ -108,7 +112,7 @@ module.exports = {
 
     myInfo: async (parent, _, { db, token }) => {
         const user = checkToken(token)
-        const result = await db.collection('user').findOne({id : user.id})
+        const result = await db.collection('user').findOne({ id: user.id })
         return result
     }
 }
