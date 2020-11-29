@@ -14,22 +14,25 @@ Programmers-API
     <img src="https://miro.medium.com/max/800/1*fYO53gKwHEsO7gxwkZmybg.png" width="70">
 </div>
 
-- Node.js
+- Server
 
-  - express
-  - apollo-server-express
+  - Node.js
+    - express
+    - apollo-server-express
   - GraphQL
 
 - DataBase
 
   - MongoDB Atlas
 
-- Server
+- Cloud
 
   - Naver Cloud Platform
-    - CentOS 7.2
-  - Docker
-    - Nginx
+
+- Docker
+
+  - Nginx
+  - Server
 
 - Auth
 
