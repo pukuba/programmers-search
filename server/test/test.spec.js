@@ -1,13 +1,13 @@
 const supertest = require('supertest')
 const app = require('../server')
 const assert = require('assert')
-
+const { register1, register2, login1, login2, get1, get2, get3 } = require('./test-codes')
 const log = console.log
 const req = supertest(app)
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-describe('TEST', async () => {
+describe('Server Run', async () => {
 
     it(`wait server`, async () => {
         await delay(2000)
@@ -28,85 +28,22 @@ describe('TEST', async () => {
         const json = JSON.parse(result.res.text)
         assert.strictEqual(json.data.test, "serverOn")
     })
+})
 
-    it(`API test1`, async () => {
+describe(`Server Get API`, async () => {
+    get1(req)
 
-        const query = `
-        query{
-            getAllProblem{
-                title
-                lv
-                url
-                tag
-            }
-        }`
+    get2(req)
 
-        const result = await req.post('/graphql')
-            .send({ query })
-            .expect(200)
+    get3(req)
+})
 
-        const json = JSON.parse(result.res.text)
-        assert.strictEqual((Object.keys(json.data.getAllProblem).length), 203)
+describe(`Server Sign API`, async () => {
+    register1(req)
 
-    })
+    register2(req)
 
-    it(`API test2`, async () => {
+    login1(req)
 
-        const query = `
-            query{
-                findProblem(text:"주식가격"){
-                    title
-                    lv
-                    url
-                    tag
-                }
-            }
-        `
-
-        const result = await req.post('/graphql')
-            .send({ query })
-            .expect(200)
-
-        const json = JSON.parse(result.res.text)
-        assert.strictEqual(json.data.findProblem[0].title, "주식가격")
-        assert.strictEqual(json.data.findProblem[0].lv, "2")
-        assert.strictEqual(json.data.findProblem[0].url, "https://programmers.co.kr/learn/courses/30/lessons/42584")
-        assert.strictEqual(json.data.findProblem[0].tag, "스택/큐")
-    })
-
-    it(`Register Test1`, async () => {
-
-        const query = `
-            mutation{
-                register(id:"test",pw:"test",name:"test"){
-                    id
-                }
-            }
-        `
-
-        const result = await req.post('/graphql')
-            .send({ query })
-            .expect(200)
-
-        const json = JSON.parse(result.res.text)
-        assert.strictEqual(json.errors[0].message,"Conflict")
-        assert.strictEqual(json.errors[0].extensions.code,409)
-    })
-
-    it(`Register Test2`, async() => {
-        const query = `
-            mutation{
-                register(id:"x",pw:"test",name:"test"){
-                    id
-                }
-            }
-        `
-
-        const result = await req.post('/graphql')
-            .send({ query })
-            .expect(200)
-
-        const json = JSON.parse(result.res.text)
-        assert.strictEqual(json.errors[0].extensions.code,412)
-    })
+    login2(req)
 })
