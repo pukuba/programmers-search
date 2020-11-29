@@ -2,17 +2,51 @@
 
 Programmers-API
 
-# 사용한 프레임워크 / 기술 🗂
+# 소계
 
-<div style="display: inline-block">
-    <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" height="70px">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1200px-GraphQL_Logo.svg.png" height="70px">
-    <img src="https://cms-assets.tutsplus.com/uploads/users/1116/posts/24835/preview_image/mongodb-logo.png" height="70px">
-    <img src="https://console.ncloud.com/public/img/logo-mini.svg" height="70px" width="70px">
-    <img src="https://camo.githubusercontent.com/58045a79a69afea4cab1cea6def6d911fba3956cf5fd683addf41c032aa64088/68747470733a2f2f636c6475702e636f6d2f78465646784f696f41552e737667" height="70px">
-    <img src="https://perfectacle.github.io/images/spring-boot-docker-image-optimization/thumb.png" width="70px">
-    <img src="https://miro.medium.com/max/800/1*fYO53gKwHEsO7gxwkZmybg.png" width="70">
-</div>
+프로그래머스의 검색기능이 없다는걸 듣고 검색API를 제작하고 추가로 다양한 서비스를 포함하여 제작하였습니다. (커뮤니티, 문제추천, 검색) 등등...
+
+# 사용법
+
+/server 에 .env파일을 만들고 각각 자신의 설정과 매칭해준뒤
+
+```cli
+npm install
+npm start
+```
+
+플레이 그라운드에서 직접 쿼리를 날릴수 있습니다. http://localhost:2004/playground
+
+사용 예시
+
+```js
+const endpoint = "http://localhost:2004/graphql";
+const query = `
+    query{
+        getAllProblem{
+            title
+            url
+            lv
+            tag
+        }
+    }`;
+
+async function getAPI() {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+  const result = await response.json();
+  console.log(result);
+}
+
+getAPI();
+```
+
+# 사용한 프레임워크 / 기술 🗂
 
 - Server
 
