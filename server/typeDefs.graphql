@@ -9,8 +9,8 @@ type Query{
 }
 
 type Mutation{
-    register(name:String!,id:String!,pw:String!,img:Upload): User
-    setUser(name:String,pw:String,img:Upload): User
+    register(id:String!, pw:String!, img:Upload, bojId: String): User,
+    setUser(pw:String,img:Upload,bojId: String): LoginResult
     login(id:String!,pw:String!): LoginResult
     logout(refreshToken:String!): Boolean
 }
@@ -28,7 +28,8 @@ type LoginResult{
 }
 
 type User{
-    name: String
     id: String
     img: String
+    tier: String
+    bojId: String
 }

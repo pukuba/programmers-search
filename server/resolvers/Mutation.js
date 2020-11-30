@@ -1,7 +1,8 @@
-const { register, login ,setUser} = require('./user')
+const { register, login, setUser, logout } = require('./user')
 
 module.exports = {
     register,
     login,
-    setUser
+    setUser,
+    logout
 }

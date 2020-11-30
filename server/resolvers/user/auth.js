@@ -12,9 +12,10 @@ module.exports = {
         }
     },
 
-    getToken: (id, db) => {
+    getToken: (id, tier, db) => {
         const token = jwt.sign({
             id,
+            tier,
             exp: Math.floor(Date.now() / 1000) + (60 * 60)
         }, process.env.JWT_PW)
 
@@ -34,9 +35,7 @@ module.exports = {
     },
 
     refreshLogin: async (parent, { refreshToken }, { db }) => {
-        console.log(refreshToken)
         const foundToken = await db.collection('token').findOne({ refreshToken })
-        console.log(foundToken)
         if (foundToken === null) {
             throw new ApolloError("refreshToken is not valid", 401)
         }
@@ -46,9 +45,11 @@ module.exports = {
             db.collection('token').deleteOne({ refreshToken })
             throw new ApolloError("refreshToken is not valid", 401)
         }
+        const userInfo = await db.collection('user').findOne({ id: foundToken.id })
         return {
             token: jwt.sign({
-                name: foundToken.name,
+                id: foundToken.id,
+                tier: userInfo.tier,
                 exp: Math.floor(Date.now() / 1000) + (60 * 60)
             }, process.env.JWT_PW)
         }
@@ -56,5 +57,6 @@ module.exports = {
 
     deleteToken: (refreshToken, db) => {
         db.collection('token').deleteOne({ refreshToken })
+        return true
     }
 }
