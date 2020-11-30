@@ -6,7 +6,7 @@ module.exports = {
     register1: (req) => it('Sign Test1 Register', async () => {
         const query = `
         mutation{
-            register(id:"test",pw:"test",name:"test"){
+            register(id:"test",pw:"test"){
                 id
             }
         }
@@ -24,7 +24,7 @@ module.exports = {
     register2: (req) => it(`Sign Test2 Register`, async () => {
         const query = `
             mutation{
-                register(id:"x",pw:"test",name:"test"){
+                register(id:"x",pw:"test"){
                     id
                 }
             }

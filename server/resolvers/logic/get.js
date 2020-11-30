@@ -19,8 +19,8 @@ module.exports = {
     },
     getRandomProblem: async (parent, _, { db }) => {
         const count = await db.collection('problem').estimatedDocumentCount()
-        const skip = rand(0, count - 1)
-        const problem = await db.collection('problem').find({}).skip(skip).limit(1).toArray()
-        return problem[0]
+        const id = rand(0, count - 1) + ""
+        const problem = await db.collection('problem').findOne({ id })
+        return problem
     }
 }
