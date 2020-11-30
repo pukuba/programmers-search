@@ -1,7 +1,7 @@
 const supertest = require('supertest')
 const app = require('../server')
 const assert = require('assert')
-const { register1, register2, login1, login2, get1, get2, get3 } = require('./test-codes')
+const { register1, register2, login1, login2, get1, get2, get3, logout1 } = require('./test-codes')
 const log = console.log
 const req = supertest(app)
 
@@ -46,4 +46,6 @@ describe(`Server Sign API`, async () => {
     login1(req)
 
     login2(req)
+
+    logout1(req)
 })

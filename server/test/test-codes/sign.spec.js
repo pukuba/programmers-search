@@ -1,5 +1,7 @@
 const assert = require('assert')
 
+let refreshToken
+
 module.exports = {
     register1: (req) => it('Sign Test1 Register', async () => {
         const query = `
@@ -53,6 +55,7 @@ module.exports = {
         const json = JSON.parse(result.res.text)
         assert(json.data.login.token)
         assert(json.data.login.refreshToken)
+        refreshToken = json.data.login.refreshToken
     }),
 
     login2: (req) => it(`Sign Test4 Login`, async () => {
@@ -71,6 +74,21 @@ module.exports = {
 
         const json = JSON.parse(result.res.text)
         assert.strictEqual(json.errors[0].extensions.code, 401)
+
+    }),
+
+    logout1: (req) => it(`Sign Test5 Logout`, async () => {
+        const query = `
+            mutation{
+                logout(refreshToken:"${refreshToken}")
+            }
+        `
+        const result = await req.post('/graphql')
+            .send({ query })
+            .expect(200)
+
+        const json = JSON.parse(result.res.text)
+        assert.strictEqual(json.data.logout, true)
 
     })
 }
