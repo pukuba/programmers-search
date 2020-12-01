@@ -21,6 +21,8 @@ type Problem{
     url: String!
     lv: String!
     tag: String!
+    id: String!
+    description: String!
 }
 
 type LoginResult{
