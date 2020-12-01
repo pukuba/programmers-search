@@ -8,7 +8,6 @@ WORKDIR /server
 # 와일드카드를 사용
 COPY . .
 
-RUN npm install
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
 
