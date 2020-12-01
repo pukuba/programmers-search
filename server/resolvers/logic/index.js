@@ -1,3 +1,3 @@
 const { getAllProblem, findProblem, findLevelByProblem, getRandomProblem } = require('./get')
-
-module.exports = { getAllProblem, findProblem, findLevelByProblem, getRandomProblem }
+const { createPost } = require('./post')
+module.exports = { getAllProblem, findProblem, findLevelByProblem, getRandomProblem, createPost }

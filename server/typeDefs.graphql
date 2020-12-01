@@ -10,9 +10,10 @@ type Query{
 
 type Mutation{
     register(id:String!, pw:String!, img:Upload, bojId: String): User,
-    setUser(pw:String,img:Upload,bojId: String): LoginResult
-    login(id:String!,pw:String!): LoginResult
+    setUser(pw:String, img:Upload, bojId: String): LoginResult
+    login(id:String!, pw:String!): LoginResult
     logout(refreshToken:String!): Boolean
+    createPost(type:Int!, problem:String, title:String!, content:String): Post
 }
 
 type Problem{
@@ -32,4 +33,14 @@ type User{
     img: String
     tier: String
     bojId: String
+}
+
+type Post{
+    id: String!
+    tier: String
+    content: String
+    date: String    
+    type: Int!
+    problem: String
+    title: String!
 }

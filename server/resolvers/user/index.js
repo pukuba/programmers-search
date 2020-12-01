@@ -1,4 +1,4 @@
-const { refreshLogin } = require('./auth')
+const { refreshLogin, checkToken, getToken } = require('./auth')
 const { register, login, logout, findUser, setUser, myInfo } = require('./sign')
 
 module.exports = {
@@ -8,5 +8,7 @@ module.exports = {
     logout,
     findUser,
     setUser,
-    myInfo
+    myInfo,
+    checkToken,
+    getToken
 }
