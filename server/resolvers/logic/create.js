@@ -1,5 +1,4 @@
 const { checkToken } = require('../user')
-const options = require('./shortcuts')
 require('date-utils')
 
 const hljs = require('highlight.js')
@@ -34,7 +33,7 @@ module.exports = {
         const result = md.render(content)
         const newDate = new Date()
         const post = {
-            id: user.id,
+            author: user.id,
             tier: user.tier,
             title,
             type,
@@ -42,7 +41,24 @@ module.exports = {
             content: result,
             date: newDate.valueOf()
         }
-        await db.collection('post').insertOne(post)
+        const { insertedId } = await db.collection('post').insertOne(post)
+        post.id = insertedId
         return post
+    },
+
+    createComment: async (parent, { postId, content }, { db, token }) => {
+        const user = checkToken(token)
+        const newDate = new Date()
+        const comment = {
+            author: user.id,
+            date: newDate.valueOf(),
+            content,
+            postId,
+            tier: user.tier
+        }
+        const { insertedId } = await db.collection('user').insertOne(user)
+        comment.id = insertedId
+        return comment
     }
+
 }

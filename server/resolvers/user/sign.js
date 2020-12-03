@@ -124,6 +124,7 @@ module.exports = {
         if (user === null || user.pw !== hashWithSalt(pw, user.salt)) {
             throw new ApolloError("id & pw check", 401)
         }
+        await db.collection('token').deleteMany({ id })
         return getToken(user.id, user.tier, db)
     },
 

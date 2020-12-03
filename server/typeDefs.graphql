@@ -1,11 +1,13 @@
 type Query{
     test: String!
-    findProblem(text:String): [Problem]
+    findProblem(text: String): [Problem]
     getAllProblem: [Problem]
     refreshLogin(refreshToken:String): LoginResult
     myInfo: User
-    findLevelByProblem(levels:[Int]): [Problem]
+    findLevelByProblem(levels: [Int]): [Problem]
     getRandomProblem: Problem
+    getPagePost(page: Int):  [Post]
+    getAllPostCount: Int
 }
 
 type Mutation{
@@ -14,6 +16,7 @@ type Mutation{
     login(id:String!, pw:String!): LoginResult
     logout(refreshToken:String!): Boolean
     createPost(type:Int!, problem:String, title:String!, content:String): Post
+    createComment(postId: Int!, content: String!): Comment
 }
 
 type Problem{
@@ -38,11 +41,21 @@ type User{
 }
 
 type Post{
-    id: String!
-    tier: String
-    content: String
-    date: String    
+    _id: String!
+    author: String!
+    tier: String!
+    content: String!
+    date: String!
     type: Int!
     problem: String
     title: String!
+}
+
+type Comment{
+    author: String!
+    date: String!
+    postId: Int!
+    content: String! 
+    tier: String!
+    _id: String!
 }

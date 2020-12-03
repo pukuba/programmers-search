@@ -22,5 +22,14 @@ module.exports = {
         const id = rand(0, count - 1) + ""
         const problem = await db.collection('problem').findOne({ id })
         return problem
+    },
+    getPagePost: async (parent, { page }, { db }) => {
+        const left = (page - 1) * 20
+        //const posts = await db.collection('post').find({ id: { "$gt": left, "$lte": right } }).toArray()
+        const posts = await db.collection('post').find().sort({ _id: -1 }).skip(left).limit(20).toArray()
+        return posts
+    },
+    getAllPostCount: async (parent, args, { db }) => {
+        return await db.collection('post').estimatedDocumentCount()
     }
 }
