@@ -6,8 +6,7 @@ import csv
 f = open('db.csv', 'w', encoding='utf-8', newline='')
 wr = csv.writer(f)
 
-wr.writerow(["title","lv","url","tag","id","description"])
-cnt = 0
+wr.writerow(["title","lv","url","tag","description"])
 
 def description_parse(x):
     webpage = requests.get(x)
@@ -20,7 +19,6 @@ def description_parse(x):
     return a[0]
 
 def parse(x):
-    global cnt
     title = x.h4.get_text()
     url = "https://programmers.co.kr"+x.attrs['href']
     level = str(x.parent.parent.find(attrs={'class':'card-algorithm'}))
@@ -32,8 +30,7 @@ def parse(x):
     # print(title)
     # print(url)
     
-    wr.writerow([title,level[33:34], url,tag, cnt, description_parse(url)])
-    cnt += 1
+    wr.writerow([title,level[33:34], url,tag, description_parse(url)])
 
 for page in pages:
     soup = BeautifulSoup(page)
