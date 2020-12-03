@@ -19,9 +19,7 @@ const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 const cors = require('cors')
 const app = express()
-
 const start = async () => {
-
     const client = await MongoClient.connect(
         process.env.DB_HOST1, {
         useUnifiedTopology: true,
