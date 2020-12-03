@@ -19,9 +19,9 @@ module.exports = {
     },
     getRandomProblem: async (parent, _, { db }) => {
         const count = await db.collection('problem').estimatedDocumentCount()
-        const id = rand(0, count - 1) + ""
-        const problem = await db.collection('problem').findOne({ id })
-        return problem
+        const id = rand(0, count - 1)
+        const problem = await db.collection('problem').find().skip(id).limit(1).toArray()
+        return problem[0]
     },
     getPagePost: async (parent, { page }, { db }) => {
         const left = (page - 1) * 20

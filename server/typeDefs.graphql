@@ -24,7 +24,7 @@ type Problem{
     url: String!
     lv: String!
     tag: String!
-    id: String!
+    _id: String!
     description: String!
 }
 
