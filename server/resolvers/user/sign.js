@@ -2,8 +2,8 @@ const { ApolloError } = require('apollo-server-express')
 const { getToken, deleteToken, checkToken } = require('./auth')
 const { uploadStream } = require('../../lib')
 
-const cryptoRandomString = require('crypto-random-string');
-const crypto = require('crypto');
+const cryptoRandomString = require('crypto-random-string')
+const crypto = require('crypto')
 const specialChar = "~!@#$%^&*()_+-=`₩[]{},.|;:></?"
 const path = require('path')
 const axios = require("axios")
@@ -81,11 +81,11 @@ module.exports = {
         const { insertedId } = await db.collection('user').insertOne(user)
 
         if (img) {
-            const image_path = path.join(__dirname, '../../models/img', `${insertedId}.png`)
+            const imagePath = path.join(__dirname, '../../models/img', `${insertedId}.png`)
             const { createReadStream } = await img
-            const stream = createReadStream(image_path);
-            await uploadStream(stream, image_path)
-            db.collection('user').updateOne({ id }, { $set: { 'img': `img/${insertedId}.png` } })
+            const stream = createReadStream(imagePath);
+            await uploadStream(stream, imagePath)
+            await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `img/${insertedId}.png` } })
         }
 
         return user
@@ -108,7 +108,7 @@ module.exports = {
             await db.collection('user').updateOne({ id: user.id }, { $set: { bojId, tier: getTier(level) } })
         }
         if (img) {
-            const { insertedId } = db.collection('user').findOne({ id: user.id })
+            const { insertedId } = await db.collection('user').findOne({ id: user.id })
             const imagePath = path.join(__dirname, '../../models/img', `${insertedId}.png`)
             const { createReadStream } = await img
             const stream = createReadStream(imagePath);
