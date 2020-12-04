@@ -7,6 +7,7 @@ const crypto = require('crypto')
 const specialChar = "~!@#$%^&*()_+-=`₩[]{},.|;:></?"
 const path = require('path')
 const axios = require("axios")
+const fs = require('fs')
 
 const checkLength = x => {
     if (!x || x.length < 4) return false
@@ -76,7 +77,7 @@ module.exports = {
             salt,
             bojId: bojId === undefined ? '' : bojId,
             tier: getTier(await getAPI(bojId)),
-            img: "img/default.png",
+            img: `${process.env.IMG_SERVER1}img/default.png`,
         }
         const { insertedId } = await db.collection('user').insertOne(user)
 
@@ -85,7 +86,19 @@ module.exports = {
             const { createReadStream } = await img
             const stream = createReadStream(imagePath);
             await uploadStream(stream, imagePath)
-            await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `img/${insertedId}.png` } })
+            fs.readFile(imagePath, (err, data) => {
+                request({
+                    url: process.env.IMG_SERVER1 + 'upload',
+                    method: 'POST',
+                    body: {
+                        file: data.toString('base64'),
+                        name: insertedId
+                    },
+                    json: true
+                })
+            })
+            user.img = `${process.env.IMG_SERVER1}img/${insertedId}.png`
+            await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `${process.env.IMG_SERVER1}img/${insertedId}.png` } })
         }
 
         return user
@@ -113,7 +126,18 @@ module.exports = {
             const { createReadStream } = await img
             const stream = createReadStream(imagePath);
             await uploadStream(stream, imagePath)
-            await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `img/${insertedId}.png` } })
+            fs.readFile(imagePath, (err, data) => {
+                request({
+                    url: process.env.IMG_SERVER1 + 'upload',
+                    method: 'POST',
+                    body: {
+                        file: data.toString('base64'),
+                        name: insertedId
+                    },
+                    json: true
+                })
+            })
+            await db.collection('user').updateOne({ id: user.id }, { $set: { 'img': `${process.env.IMG_SERVER1}img/${insertedId}.png` } })
         }
         const updateUser = await db.collection('user').findOne({ id: user.id })
         return getToken(updateUser.id, updateUser.tier, db)
