@@ -8,6 +8,7 @@ const specialChar = "~!@#$%^&*()_+-=`₩[]{},.|;:></?"
 const path = require('path')
 const axios = require("axios")
 const fs = require('fs')
+const request = require('request')
 
 const checkLength = x => {
     if (!x || x.length < 4) return false
