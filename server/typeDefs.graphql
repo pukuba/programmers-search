@@ -24,7 +24,7 @@ type Problem{
     url: String!
     lv: String!
     tag: String!
-    _id: String!
+    id: String!
     description: String!
 }
 
@@ -57,5 +57,5 @@ type Comment{
     postId: Int!
     content: String! 
     tier: String!
-    _id: String!
+    id: String!
 }
