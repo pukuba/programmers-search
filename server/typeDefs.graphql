@@ -8,6 +8,8 @@ type Query{
     getRandomProblem: Problem
     getPagePost(page: Int):  [Post]
     getAllPostCount: Int
+    getPageProblem(page: Int): [Problem]
+    getAllProblemCount: Int
 }
 
 type Mutation{

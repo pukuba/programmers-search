@@ -14,8 +14,12 @@ module.exports = {
             const problems = await db.collection('problem').find({ lv: String(cur) }).toArray()
             return problems.concat(await acc)
         }, [])
-
         return returnArr
+    },
+    getPageProblem: async (parent, { page }, { db }) => {
+        const left = (page - 1) * 20
+        const problems = await db.collection('problem').find().sort({ _id: -1 }).skip(left).limit(20).toArray()
+        return problems
     },
     getRandomProblem: async (parent, _, { db }) => {
         const count = await db.collection('problem').estimatedDocumentCount()
@@ -31,5 +35,8 @@ module.exports = {
     },
     getAllPostCount: async (parent, args, { db }) => {
         return await db.collection('post').estimatedDocumentCount()
+    },
+    getAllProblemCount: async (parent, args, { db }) => {
+        return await db.collection('problem').estimatedDocumentCount()
     }
 }
