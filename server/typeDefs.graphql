@@ -6,10 +6,14 @@ type Query{
     myInfo: User
     findLevelByProblem(levels: [Int]): [Problem]
     getRandomProblem: Problem
-    getPagePost(page: Int):  [Post]
+    getPageByAllPost(page: Int):  [Post]
     getAllPostCount: Int
     getPageProblem(page: Int): [Problem]
     getAllProblemCount: Int
+    getProblemByPostCount(problemId: String): Int
+    getCommentCount(postId: String): Int
+    getPost(postId: String): Post
+    getPageByComment(page:Int, postId:String):[Comment]
 }
 
 type Mutation{
@@ -17,7 +21,7 @@ type Mutation{
     setUser(pw:String, img:Upload, bojId: String): LoginResult
     login(id:String!, pw:String!): LoginResult
     logout(refreshToken:String!): Boolean
-    createPost(type:Int!, problem:String, title:String!, content:String): Post
+    createPost(type:Int!, problemId:String, title:String!, content:String): Post
     createComment(postId: Int!, content: String!): Comment
 }
 
@@ -49,7 +53,7 @@ type Post{
     content: String!
     date: String!
     type: Int!
-    problem: String
+    problemId: String
     title: String!
 }
 

@@ -27,15 +27,6 @@ module.exports = {
         const problem = await db.collection('problem').find().skip(id).limit(1).toArray()
         return problem[0]
     },
-    getPagePost: async (parent, { page }, { db }) => {
-        const left = (page - 1) * 20
-        //const posts = await db.collection('post').find({ id: { "$gt": left, "$lte": right } }).toArray()
-        const posts = await db.collection('post').find().sort({ _id: -1 }).skip(left).limit(20).toArray()
-        return posts
-    },
-    getAllPostCount: async (parent, args, { db }) => {
-        return await db.collection('post').estimatedDocumentCount()
-    },
     getAllProblemCount: async (parent, args, { db }) => {
         return await db.collection('problem').estimatedDocumentCount()
     }

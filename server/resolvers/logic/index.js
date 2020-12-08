@@ -1,5 +1,6 @@
-const { getAllProblem, findProblem, findLevelByProblem, getRandomProblem, getPagePost, getAllPostCount, getPageProblem, getAllProblemCount } = require('./get')
+const { getAllProblem, findProblem, findLevelByProblem, getRandomProblem, getPageProblem, getAllProblemCount } = require('./getProblem')
 const { createPost } = require('./create')
+const { getPageByAllPost, getAllPostCount, getProblemByPostCount, getPost, getCommentCount, getPageByComment } = require('./getPost')
 
 module.exports = {
     getAllProblem,
@@ -7,8 +8,12 @@ module.exports = {
     findLevelByProblem,
     getRandomProblem,
     createPost,
-    getPagePost,
+    getPageByAllPost,
     getAllPostCount,
     getPageProblem,
-    getAllProblemCount
+    getAllProblemCount,
+    getProblemByPostCount,
+    getPost,
+    getCommentCount,
+    getPageByComment
 }
