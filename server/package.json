@@ -27,7 +27,8 @@
     "nodemon": "^2.0.6",
     "pm2": "^4.5.0",
     "request": "^2.88.2",
-    "supertest": "^6.0.1"
+    "supertest": "^6.0.1",
+    "yarn": "^1.22.10"
   },
   "resolutions": {
     "**/apollo-server-core/graphql-upload": "^11.0.0"
