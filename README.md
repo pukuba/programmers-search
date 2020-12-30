@@ -68,10 +68,6 @@ getAPI();
   - Nginx
   - Server
 
-- Auth
-
-  - Json Web Token
-
 - TDD
   - SuperTest
   - Mocha
