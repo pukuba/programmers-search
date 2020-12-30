@@ -2,27 +2,9 @@ type Query{
     test: String!
     findProblem(text: String): [Problem]
     getAllProblem: [Problem]
-    refreshLogin(refreshToken:String): LoginResult
-    myInfo: User
     findLevelByProblem(levels: [Int]): [Problem]
     getRandomProblem: Problem
-    getPageByAllPost(page: Int):  [Post]
-    getAllPostCount: Int
-    getPageProblem(page: Int): [Problem]
     getAllProblemCount: Int
-    getProblemByPostCount(problemId: String): Int
-    getCommentCount(postId: String): Int
-    getPost(postId: String): Post
-    getPageByComment(page:Int, postId:String):[Comment]
-}
-
-type Mutation{
-    register(id:String!, pw:String!, img:Upload, bojId: String): User,
-    setUser(pw:String, img:Upload, bojId: String): LoginResult
-    login(id:String!, pw:String!): LoginResult
-    logout(refreshToken:String!): Boolean
-    createPost(type:Int!, problemId:String, title:String!, content:String): Post
-    createComment(postId: Int!, content: String!): Comment
 }
 
 type Problem{
@@ -34,18 +16,6 @@ type Problem{
     description: String!
 }
 
-type LoginResult{
-    token: String
-    refreshToken: String
-}
-
-type User{
-    id: String
-    img: String
-    tier: String
-    bojId: String
-}
-
 type Post{
     id: String!
     author: String!
@@ -55,13 +25,4 @@ type Post{
     type: Int!
     problemId: String
     title: String!
-}
-
-type Comment{
-    author: String!
-    date: String!
-    postId: Int!
-    content: String! 
-    tier: String!
-    id: String!
 }

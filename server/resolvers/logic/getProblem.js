@@ -16,11 +16,6 @@ module.exports = {
         }, [])
         return returnArr
     },
-    getPageProblem: async (parent, { page }, { db }) => {
-        const left = (page - 1) * 20
-        const problems = await db.collection('problem').find().sort({ _id: -1 }).skip(left).limit(20).toArray()
-        return problems
-    },
     getRandomProblem: async (parent, _, { db }) => {
         const count = await db.collection('problem').estimatedDocumentCount()
         const id = rand(0, count - 1)
