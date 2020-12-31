@@ -1,15 +1,17 @@
-const { getAllProblem,
-    findProblem,
-    findLevelByProblem,
-    getRandomProblem,
-    getAllProblemCount,
-} = require('./logic')
-
-module.exports = {
-    test: () => "serverOn",
+import {
+    test,
     getAllProblem,
     findProblem,
     findLevelByProblem,
     getRandomProblem,
-    getAllProblemCount,
+    getAllProblemCount
+} from './app'
+
+export {
+    test,
+    getAllProblem,
+    findProblem,
+    findLevelByProblem,
+    getRandomProblem,
+    getAllProblemCount
 }

@@ -12,17 +12,6 @@ type Problem{
     url: String!
     lv: String!
     tag: String!
-    id: String!
+    _id: String!
     description: String!
-}
-
-type Post{
-    id: String!
-    author: String!
-    tier: String!
-    content: String!
-    date: String!
-    type: Int!
-    problemId: String
-    title: String!
 }
