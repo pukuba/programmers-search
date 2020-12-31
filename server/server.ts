@@ -7,7 +7,7 @@ import { createServer } from 'http'
 import dotenv from 'dotenv'
 dotenv.config()
 import depthLimit from 'graphql-depth-limit'
-import * as resolvers from './resolvers'
+const resolvers = require('./resolvers')
 const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 import cors from 'cors'
