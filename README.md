@@ -1,6 +1,6 @@
 # programmers-search
 
-Programmers-API
+Programmers Problem Search API
 
 # 소계
 
