@@ -38,9 +38,10 @@ const start = async () => {
     })
     server.applyMiddleware({ app })
 
+    app.use(cors(corsOptions))
+
     app.get('/', expressPlayground({ endpoint: '/graphql' }))
     app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
-    app.use(cors(corsOptions))
 
     const httpServer = createServer(app)
     httpServer.timeout = 5000
