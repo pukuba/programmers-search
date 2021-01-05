@@ -12,11 +12,8 @@ const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 import cors from 'cors'
 const app = express()
-const corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200,
-}
-app.use(cors(corsOptions))
+
+app.use(cors())
 const start = async () => {
     const client = await MongoClient.connect(
         String(process.env.DB_HOST1), {
