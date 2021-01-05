@@ -12,7 +12,11 @@ const typeDefs = readFileSync('./typeDefs.graphql', 'utf-8')
 
 import cors from 'cors'
 const app = express()
-
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+}
+app.use(cors(corsOptions))
 const start = async () => {
     const client = await MongoClient.connect(
         String(process.env.DB_HOST1), {
@@ -21,10 +25,7 @@ const start = async () => {
     }
     )
     const db = client.db()
-    const corsOptions = {
-        origin: '*',
-        optionsSuccessStatus: 200,
-    }
+
     const server = new ApolloServer({
         typeDefs,
         resolvers,
@@ -37,8 +38,6 @@ const start = async () => {
         ]
     })
     server.applyMiddleware({ app })
-
-    app.use(cors(corsOptions))
 
     app.get('/', expressPlayground({ endpoint: '/graphql' }))
     app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
