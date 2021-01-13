@@ -9,6 +9,7 @@ services:
       - 27017:27017
     volumes: 
       - /usr/local/var/mongodb:/data/db
+
     restart: "unless-stopped" 
   proxy:
     image: nginx:latest   # 최신 버전의 Nginx 사용
