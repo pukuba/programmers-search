@@ -1,5 +1,7 @@
-module.exports = {
-    Problem: {
-        id: (parent: any) => parent._id
-    }
+import { Problem } from '../models/Types'
+
+const Problem = {
+    id: (parent: Problem) => parent._id
 }
+
+export { Problem }

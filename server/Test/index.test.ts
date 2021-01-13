@@ -1,6 +1,6 @@
 import assert from 'assert'
 import fetch from 'node-fetch'
-const server = `http://localhost:2004/graphql`
+const server = `http://localhost:8080/graphql`
 
 describe(`GQL Server Test`, () => {
     it(`getAllProblemCount API Test`, async () => {
@@ -106,7 +106,7 @@ describe(`GQL Server Test`, () => {
         })
         const data = await response.json()
         assert.strictEqual(response.status, 200)
-        assert.strictEqual(data.data.findProblem[0].id, "5fc907362cd1fb37d357e87c")
+        assert.strict(data.data.findProblem[0].id)
         assert.strictEqual(~~data.data.findProblem[0].lv, 2)
         assert.strictEqual(data.data.findProblem[0].title, "주식가격")
     })

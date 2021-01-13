@@ -1,6 +1,6 @@
-const Query = require('./Query')
-const Type = require('./Type')
-module.exports = {
+import * as Query from './Query'
+import { Problem } from './Type'
+export default {
     Query,
-    ...Type
+    Problem
 }

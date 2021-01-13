@@ -1,5 +1,4 @@
 type Query{
-    test: String!
     findProblem(text: String): [Problem]
     getAllProblem: [Problem]
     findLevelByProblem(levels: [Int]): [Problem]

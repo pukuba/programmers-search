@@ -1,5 +1,4 @@
 import {
-    test,
     getAllProblem,
     findProblem,
     findLevelByProblem,
@@ -8,7 +7,6 @@ import {
 } from './app'
 
 export {
-    test,
     getAllProblem,
     findProblem,
     findLevelByProblem,

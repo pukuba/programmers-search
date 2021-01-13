@@ -44,7 +44,8 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "ts-node server.ts"
+    "start": "ts-node server.ts",
+    "init": "ts-node models/init_db.ts"
   },
   "repository": {
     "type": "git",

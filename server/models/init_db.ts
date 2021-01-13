@@ -1,25 +1,18 @@
 import dotenv from 'dotenv'
 import path from 'path'
-import { MongoClient } from 'mongodb'
 import csv from 'csvtojson'
-const csvFilePath = "./db.csv"
+const csvFilePath = path.join(__dirname, 'db.csv')
 
 dotenv.config({ path: path.join(__dirname, '../.env') })
-
+import DB from '../config/connectDB'
 const init = async () => {
     const jsonArray = await csv().fromFile(csvFilePath)
 
-    const client = await MongoClient.connect(
-        String(process.env.DB_HOST1), {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    }
-    )
 
-    const db = client.db()
+    const db = await DB.get()
     const ls = await db.listCollections().toArray()
-    if (ls.length !== 0) {
-        await db.collection('problem').drop()
+    for (const idx in ls) {
+        await db.collection(ls[idx].name).drop()
     }
 
     await db.collection('problem').insertMany(jsonArray)
