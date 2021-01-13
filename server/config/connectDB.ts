@@ -3,6 +3,8 @@ import { MongoClient, Db } from 'mongodb'
 
 let db: Db | null = null
 let instance: number = 0
+const host = process.env.DB_HOST ? process.env.DB_HOST : env.DB_HOST
+console.log(host)
 const connectDB = () => {
 
     const connect = async () => {
@@ -19,7 +21,8 @@ const connectDB = () => {
             const _db = client.db()
             return _db
         } catch (e) {
-            return e
+            console.log(e)
+            return null
         }
     }
 

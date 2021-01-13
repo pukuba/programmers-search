@@ -17,8 +17,6 @@ services:
     build:
       context: ./server  # 빌드할 Dockerfile이 위치한 경로
     container_name: express
-    # expose: 
-    #   - "3000"           # 다른 컨테이너에게 3000번 포트 open
     volumes:
       - ./server:/server # host <-> container의 source 디렉토리를 공유
       - /server/node_modules # !!!!!!!! Dockerfile 설명에서 다시 설명합니다.
