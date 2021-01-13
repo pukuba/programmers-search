@@ -14,6 +14,7 @@ Programmers Problem Search API
 
 ```cli
 npm install
+npm init
 npm start
 ```
 

@@ -1,16 +1,7 @@
 version: "3.8" # 설치된 docker 버전에 따라 다릅니다!
 
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
-    restart: always
-    ports:
-      - 27017:27017
-    volumes: 
-      - /usr/local/var/mongodb:/data/db
 
-    restart: "unless-stopped" 
   proxy:
     image: nginx:latest   # 최신 버전의 Nginx 사용
     container_name: proxy # container 이름은 proxy
