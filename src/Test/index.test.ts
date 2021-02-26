@@ -1,6 +1,8 @@
 import assert from "assert"
 import fetch from "node-fetch"
-const server = `http://localhost:8080/graphql`
+import app from "server"
+import request from "supertest"
+
 
 describe(`GQL Server Test`, () => {
     it(`getAllProblemCount API Test`, async () => {
@@ -9,105 +11,68 @@ describe(`GQL Server Test`, () => {
             getAllProblemCount
           }
         `
-        const response: any = await fetch(server, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query })
-        })
-        const data = await response.json()
-        assert.strictEqual(response.status, 200)
-        assert.strictEqual(data.data.getAllProblemCount, 203)
+        const response = await request(app)
+            .get(`/graphql?query=${query}`)
+            .expect(200)
+        const data = response.body.data.getAllProblemCount
 
+        assert.strictEqual(data, 203)
     })
 
     it(`getRandomProblem API Test`, async () => {
         const query = `
-        query{
-            getRandomProblem{
-              lv
-            }
-          }
-        `
+            query{
+                getRandomProblem{
+                  lv
+                }
+              }
+            `
 
-        const response: any = await fetch(server, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query })
-        })
-        const data = await response.json()
-        assert.strictEqual(response.status, 200)
-        assert(data.data.getRandomProblem.lv)
-    })
+        const response = await request(app)
+            .get(`/graphql?query=${query}`)
+            .expect(200)
 
-    it(`getRandomProblem API Test`, async () => {
-        const query = `
-        query{
-            getRandomProblem{
-              lv
-            }
-          }
-        `
-
-        const response: any = await fetch(server, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query })
-        })
-        const data = await response.json()
-        assert.strictEqual(response.status, 200)
-        assert(data.data.getRandomProblem.lv)
+        const data = response.body.data.getRandomProblem
+        assert(data.lv)
     })
 
     it(`findLevelByProblem API Test`, async () => {
         const query = `
-        query{
-            findLevelByProblem(levels:[1,2,3,4,5]){
-              lv
-            }
-          }
-          `
+            query{
+                findLevelByProblem(levels:[1,2,3,4,5]){
+                  lv
+                }
+              }
+              `
 
-        const response: any = await fetch(server, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query })
-        })
-        const data = await response.json()
-        assert.strictEqual(response.status, 200)
-        assert.strictEqual(data.data.findLevelByProblem.length, 203)
-        assert.strictEqual(~~data.data.findLevelByProblem[0].lv, 1)
+        const response = await request(app)
+            .get(`/graphql?query=${query}`)
+            .expect(200)
+
+        const data = response.body.data.findLevelByProblem
+        assert.strictEqual(data.length, 203)
+        assert.strictEqual(~~data[0].lv, 1)
     })
 
     it(`findProblem API Test`, async () => {
         const query = `
-        query{
-            findProblem(text:"주식"){
-              id
-              lv
-              title
-            }
-          }
-          `
+            query{
+                findProblem(text:"a"){
+                  id
+                  lv
+                  title
+                }
+              }
+            `
 
-        const response: any = await fetch(server, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query })
-        })
-        const data = await response.json()
-        assert.strictEqual(response.status, 200)
-        assert.strict(data.data.findProblem[0].id)
-        assert.strictEqual(~~data.data.findProblem[0].lv, 2)
-        assert.strictEqual(data.data.findProblem[0].title, "주식가격")
+        const response: any = await request(app)
+            .get(`/graphql?query=${query}`)
+            .expect(200)
+
+        const data = await response.body.data.findProblem[0]
+
+        assert.strict(data.id)
+        assert.strictEqual(~~data.lv, 2)
+        assert.strictEqual(data.title, "JadenCase 문자열 만들기")
     })
 })

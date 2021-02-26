@@ -37,5 +37,5 @@ const start = async () => {
         console.log(`GraphQL Server Running at http://localhost:${process.env.PORT || 8080}${server.graphqlPath}`)
     })
 }
-
+export default app
 start()
