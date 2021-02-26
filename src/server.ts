@@ -10,10 +10,8 @@ import depthLimit from "graphql-depth-limit"
 import resolvers from "resolvers"
 const typeDefs = readFileSync("src/typeDefs.graphql", "utf-8")
 
-import cors from "cors"
 const app = express()
 
-app.use(cors())
 const start = async () => {
     const db = await DB.get()
 
