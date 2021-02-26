@@ -17,7 +17,7 @@
   "name": "programmers-search",
   "version": "1.0.0",
   "description": "Programmers-API",
-  "main": "index.js",
+  "main": "server/server.js",
   "dependencies": {
     "apollo-server-express": "^2.19.1",
     "body-parser": "^1.19.0",
@@ -31,7 +31,7 @@
     "http": "^0.0.1-security",
     "mongodb": "^3.6.3",
     "nodemon": "^2.0.6",
-    "pm2": "^4.5.1",
+    "pm2": "^4.5.5",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
@@ -43,9 +43,11 @@
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "test": "jest",
-    "start": "ts-node server.ts",
-    "init": "ts-node models/init_db.ts"
+    "test": "pm2 install typescript && pm2 update && pm2 delete all && NODE_PATH=src/ pm2 start src/server.ts -f && sleep 5 && jest && pm2 delete all",
+    "start": "NODE_PATH=dist/ node dist/server.js",
+    "init": "NODE_PATH=src/ ts-node src/models/init_db.ts",
+    "build": "tsc -p .",
+    "dev": "NODE_PATH=src/ nodemon src/server.ts"
   },
   "repository": {
     "type": "git",

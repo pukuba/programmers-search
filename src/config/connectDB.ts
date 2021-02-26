@@ -1,5 +1,5 @@
-import env from './env'
-import { MongoClient, Db } from 'mongodb'
+import env from "config/env"
+import { MongoClient, Db } from "mongodb"
 
 let db: Db | null = null
 let instance: number = 0

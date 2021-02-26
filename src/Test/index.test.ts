@@ -1,5 +1,5 @@
-import assert from 'assert'
-import fetch from 'node-fetch'
+import assert from "assert"
+import fetch from "node-fetch"
 const server = `http://localhost:8080/graphql`
 
 describe(`GQL Server Test`, () => {

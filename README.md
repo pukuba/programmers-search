@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pukuba/programmers-search.svg?branch=main)](https://travis-ci.org/pukuba/programmers-search)
+
 # programmers-search
 
 Programmers Problem Search API
