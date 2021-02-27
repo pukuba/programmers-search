@@ -10,7 +10,7 @@ Programmers Problem Search API
 
 # 사용법
 
-run
+run api server
 ```  
 npm install
 npm run init
