@@ -10,11 +10,9 @@ Programmers Problem Search API
 
 # 사용법
 
-/server 에 .env파일을 만들고 각각 자신의 설정과 매칭해준뒤
-
-```cli
+``` 
 npm install
-npm init
+npm run init
 npm start
 ```
 
