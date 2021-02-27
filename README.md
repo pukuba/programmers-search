@@ -10,10 +10,15 @@ Programmers Problem Search API
 
 # 사용법
 
-``` 
+run
+```  
 npm install
 npm run init
 npm start
+```
+docker-build
+```
+docker-compose up -d --build
 ```
 
 플레이 그라운드에서 직접 쿼리를 날릴수 있습니다. http://localhost:2004/playground
